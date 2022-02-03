@@ -1,0 +1,11 @@
+html {
+    box-sizing: border-box;
+}
+
+table {
+    width: 60vw;
+}
+
+th {
+    border: 2px solid black;
+}
