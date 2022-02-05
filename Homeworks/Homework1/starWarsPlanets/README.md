@@ -27,9 +27,9 @@ Aneta's comments:
 - Then it should handle the previous and the next page buttons depending on the current page
 
 4. Add event handlers for all three buttons 
-- The show results button shuild make the first api call for the page 1
-- The "NEXT 10" button appears immidiately and once clicked, the currentPage variable increments by 1 to show the next page and so on until the last page where the button disappears.
-- ONCE THE "NEXT 10" button is clicked, the "PREVIOUS 10" button appears as now we have previous page. Once the "PREVIOUS 10" is clicked, the currentPage variable decrements by one and the function getPlanets is called with the new value of the currentPage parameter and so on until we return to the first page where the "PREVIOUS 10" button disappears as ow we don't have a previous page.
+- The show results button should make the first api call for the page 1
+- The "NEXT 10" button appears immidiately and once clicked, the currentPage variable increments by 1 and the getPlanets function is called with the new value of the currentPage parameter to show the next page and so on until the last page where the "NEXT 10" button disappears because we are currently on the last page.
+- Once THE "NEXT 10" button is clicked, the "PREVIOUS 10" button appears as now we have previous page. Once the "PREVIOUS 10" is clicked, the currentPage variable decrements by one and the function getPlanets is called with the new value of the currentPage parameter to show the previous page and so on until we return to the first page where the "PREVIOUS 10" button disappears because we are currently on the first page.
 
 5. Add a code logic to display the current page
 
