@@ -14,6 +14,7 @@ After the user clicks the button to get the first 10 planets, a button should be
 
 
 Aneta's comments: 
+APPOLOGIES IN ADVANCE FOR CHANGING SOME OF THE INITIAL REQUIREMENTS :)
 
 **Steps for creating the app:
 
