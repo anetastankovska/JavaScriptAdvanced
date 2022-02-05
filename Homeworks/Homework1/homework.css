@@ -2,10 +2,21 @@ html {
     box-sizing: border-box;
 }
 
-table {
-    width: 60vw;
-}
-
 th {
     border: 2px solid black;
+    background-color: lightgray;
 }
+
+td {
+    border-style: solid;
+    border-width: 0.5px 2px;
+    border-color: black;
+}
+
+#nextm, #prev, span {
+    float: left;
+    margin-right: 5px;
+}
+
+
+
