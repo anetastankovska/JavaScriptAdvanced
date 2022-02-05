@@ -22,14 +22,14 @@ Aneta's comments:
 2. Declare the global variables that will be used later in the code
 
 3. Create a function to get the Star Wars planets:
--The function shoud make an ajax call to get the first page 
--Then it should fill in the html table element container with the requested data
--Then it should handle the previous and the next page buttons depending on the current page
+- The function shoud make an ajax call to get the first page 
+- Then it should fill in the html table element container with the requested data
+- Then it should handle the previous and the next page buttons depending on the current page
 
 4. Add event handlers for all three buttons 
--The show results button shuild make the first api call for the page 1
--The "NEXT 10" button appears immidiately and once clicked, the currentPage variable increments by 1 to show the next page and so on until the last page where the button disappears.
--ONCE THE "NEXT 10" button is clicked, the "PREVIOUS 10" button appears as now we have previous page. Once the "PREVIOUS 10" is clicked, the currentPage variable decrements by one and the function getPlanets is called with the new value of the currentPage parameter and so on until we return to the first page where the "PREVIOUS 10" button disappears as ow we don't have a previous page.
+- The show results button shuild make the first api call for the page 1
+- The "NEXT 10" button appears immidiately and once clicked, the currentPage variable increments by 1 to show the next page and so on until the last page where the button disappears.
+- ONCE THE "NEXT 10" button is clicked, the "PREVIOUS 10" button appears as now we have previous page. Once the "PREVIOUS 10" is clicked, the currentPage variable decrements by one and the function getPlanets is called with the new value of the currentPage parameter and so on until we return to the first page where the "PREVIOUS 10" button disappears as ow we don't have a previous page.
 
 5. Add a code logic to display the current page
 
