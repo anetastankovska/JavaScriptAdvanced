@@ -1,3 +1,15 @@
+nav {
+    display: block;
+    background-color: darkgray;
+    height: 5vh;
+    margin: 0 auto;
+}
+
+.navigation {
+    cursor: pointer
+}
+
+
 h1 {
     background-image: url("../pictures/banner.jpg");
     background-size: cover;
@@ -9,11 +21,32 @@ h1 {
     color: navy;
 }
 
-nav {
-    display: block;
-    background-color: darkgray;
-    height: 5vh;
-    margin: 0 auto;
+h3 {
+    text-align: center;
+    font-size: 1.5em;
+    color: darkred;
+}
+
+p {
+    text-align: center;
+    font-size: 1.2em;
+    color:royalblue;
+}
+
+table {
+    margin-top: 10px;
+    border: 2px solid navy;
+    width:70%; 
+    margin-left:15%; 
+    margin-right:15%;
+}
+
+td, th {
+    font-size: large;
+    text-align: center;
+    border: 2px solid black;
+    padding-left: 20px;
+    padding-right: 20px;
 }
 
 ul {
@@ -33,18 +66,7 @@ a {
     color: navy;
 }
 
-table {
-    margin-top: 10px;
-    border: 2px solid navy;
-    width:70%; 
-    margin-left:15%; 
-    margin-right:15%;
+.active {
+    font-weight: bold;
 }
 
-
-td, th {
-    text-align: center;
-    border: 2px solid black;
-    padding-left: 20px;
-    padding-right: 20px;
-}
