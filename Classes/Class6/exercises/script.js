@@ -1,4 +1,5 @@
 $.ajax({
+    method: 'GET',
     url: 'https://raw.githubusercontent.com/sedc-codecademy/skwd10-04-ajs/main/G3/Class06/exercises/students.json',
     success: function (response) {
         let data = JSON.parse(response);
@@ -22,20 +23,60 @@ $.ajax({
         let task5 = data
             .filter(x => x.gender === 'Male')
             .filter(x => x.firstName.startsWith('B') && x.averageGrade > 2);
+
+        let task6 = data
+            .filter(x => x.email.endsWith('org'))
+            .map(x => `${x.firstName} ${x.lastName}, ${x.email}`);
+
+        let task7 = data
+            .reduce((prev, curr) => {
+                if (curr.age >25 && curr.firstName.startsWith('A')) {
+                    prev.push(`${curr.firstName} ${curr.lastName} ${curr.age}`);
+                }
+                return prev;
+            }, []);
+
+        let task8 = data.reduce((prev, curr) => {
+            if (curr.age > 25 && curr.firstName.startsWith('A')) {
+                prev[curr.firstName] = curr.age;
+            }
+            return prev;
+        }, {});
+
+        let task9 = data.reduce((prev, curr) => {
+            if (curr.age > 28 && curr.gender === "Female") {
+                prev += `${curr.firstName} ${curr.age} `;
+            }
+            return prev;
+        }, '');
+        
+
         
         console.log(task1);
         console.log(task2);
         console.log(task3);
         console.log(task4);
         console.log(task5);
-
+        console.log(task6);
+        console.log(task7);
+        console.log(task8);
+        console.log(task9);
+        
+        
         let task4Reduce = data
-            .reduce((prev, curr) => {
-                if (curr.gender === "Female" && curr.age > 24) {
-                    prev.push(curr.averageGrade);
-                }
-                return prev;
-            }, []);
+        .reduce((prev, curr) => {
+            if (curr.gender === "Female" && curr.age > 24) {
+                prev.push(curr.averageGrade);
+            }
+            return prev;
+        }, []);
         console.log(task4Reduce);
+        
+        let task10 = task4Reduce.sort((a, b) => a - b);
+        console.log(task10);
+        
     }
+
+
+    
 })
