@@ -1,16 +1,24 @@
-function test (a) {
-    let n = 3;
-    let str = a.substring(0, a.length - n);
-    return str;
+let stopwatch = {
+    time = 0,
+    interval = null,
 
-}
+    start: function () {
+        this.interval = setInterval(() => {
+            this.time++;
+            console.log(this.time);
+        }, 1000);
+    },
 
+    stop: function () {
+        clearInterval(this.interval);
+        this.interval = null;
+    },
 
-let t = test('abcdefg');
-console.log(t);
-
-let t1 = test('1234');
-console.log(t1);
-
-let t2 = test('fgedcba');
-console.log(t2);
+    reset: function () {
+        if (this.interval) {
+            clearInterval(this.interval);
+            this.interval = null;
+        }
+        this.time = 0;
+    }
+};
