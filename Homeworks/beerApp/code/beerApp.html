@@ -7,19 +7,30 @@
     <title>Beer World</title>
     <link rel="icon" type="image/x-icon" href="../pictures/beer-icon.png">
     <link rel="stylesheet" type="text/css" href="beerApp.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     
 </head>
 <body>
     <nav>
-        <ul>
-            <li class="nav active">Beer Bar</li>
-            <li class="nav">Beers</li>
-            <li class="nav">Random Beer</li>
-            <li id="search"><input type="text" placeholder="Search"><button>Search</button></li>
+        <ul id="flexUl">
+            <li id="home" class="nav active">Beer Bar</li>
+            <li id="beers" class="nav">Beers</li>
+            <li id="random" class="nav">Random Beer</li>
+            <li id="search"><input type="text" id="searchInput" placeholder="Search"><button id="searchButton" >Search</button></li>
         </ul>
+        
     </nav>
+    <div id="wrapper">
+        <div id="sortAndPage">
 
-    <div id="wrapper"></div>
+        </div>
+        <div id="beerGrid">
+
+        </div>
+        <div id="pagination"></div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
     <script src="beerApp.js"></script>
 </body>
 </html>
