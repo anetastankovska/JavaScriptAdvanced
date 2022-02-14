@@ -5,7 +5,7 @@ let beerList = [];
 let currentPage = 0;
 
 
-// Function for handling the home page "Beers"
+// Function for loading the home page "Beers"
 function loadHome () {
     let homeStr = `<div id="home"><h1>Welcome to the beer world!</h1>
     <p>On this simple beer page you can get all the information about different types of beer.</p><hr>
@@ -31,42 +31,8 @@ function loadSortLists () {
     return sortStr;
 }
 
-// Function for loading the previous and next buttons 
-function loadButtons () {
-    let buttonStr = "";
-    buttonStr = `<div id="buttonsDiv">
-        <button id="prev">Previous page</button>
-        <span>Current page: ${currentPage + 1}</span>
-        <button id="next">Next page</button></div>`;
-    console.log(buttonStr);
-    document.getElementById("pagination").innerHTML = buttonStr;
-    if(currentPage == 0){
-        document.getElementById("prev").setAttribute("disabled", true);
-    }
-    document.getElementById("next").addEventListener('click', event => {
-        currentPage++;
-        document.getElementById("prev").removeAttribute("disabled");
-        document.getElementsByTagName("span")[0].innerText = `Current page: ${currentPage+1}`;
-        let cnt = (1+currentPage) * parseInt(document.getElementById("page-size").value);
-        console.log(cnt);
-        if(cnt >= beerList.length) {document.getElementById("next").setAttribute("disabled", true); }
-        document.getElementById("page-size").dispatchEvent(new Event('change'));
-    })
-    document.getElementById("prev").addEventListener('click', event => {
-        currentPage--;
-        if(currentPage == 0){
-            document.getElementById("prev").setAttribute("disabled", true);
-        }
-        let cnt = (1+currentPage) * parseInt(document.getElementById("page-size").value);
-        console.log(cnt);
-        if(cnt >= beerList.length) {document.getElementById("next").removeAttribute("disabled"); }
-        document.getElementsByTagName("span")[0].innerText = `Current page: ${currentPage+1}`;
-        document.getElementById("page-size").dispatchEvent(new Event('change'));
-    })
-    // return buttonStr;
-}
 
-// Function for loading the beers 
+// Function for loading all beers 
 function loadBeers (responseapi) {
     let beerStr = "";
     beerStr += `<div id="flexDiv">`
@@ -105,6 +71,41 @@ function showBeerDetails (beerData) {
 };
 
 
+
+// Function and events for showing and handling the previous and next buttons 
+function loadButtons () {
+    let buttonStr = "";
+    buttonStr = `<div id="buttonsDiv">
+        <button id="prev">Previous page</button>
+        <span>Current page: ${currentPage + 1}</span>
+        <button id="next">Next page</button></div>`;
+    console.log(buttonStr);
+    document.getElementById("pagination").innerHTML = buttonStr;
+    if(currentPage == 0){
+        document.getElementById("prev").setAttribute("disabled", true);
+    }
+    document.getElementById("next").addEventListener('click', event => {
+        currentPage++;
+        document.getElementById("prev").removeAttribute("disabled");
+        document.getElementsByTagName("span")[0].innerText = `Current page: ${currentPage+1}`;
+        let cnt = (1+currentPage) * parseInt(document.getElementById("page-size").value);
+        console.log(cnt);
+        if(cnt >= beerList.length) {document.getElementById("next").setAttribute("disabled", true); }
+        document.getElementById("page-size").dispatchEvent(new Event('change'));
+    })
+    document.getElementById("prev").addEventListener('click', event => {
+        currentPage--;
+        if(currentPage == 0){
+            document.getElementById("prev").setAttribute("disabled", true);
+        }
+        let cnt = (1+currentPage) * parseInt(document.getElementById("page-size").value);
+        console.log(cnt);
+        if(cnt >= beerList.length) {document.getElementById("next").removeAttribute("disabled"); }
+        document.getElementsByTagName("span")[0].innerText = `Current page: ${currentPage+1}`;
+        document.getElementById("page-size").dispatchEvent(new Event('change'));
+    })
+    
+}
 
 //Event for showing the home page on load
 $(document).ready (() => {
@@ -172,7 +173,6 @@ document.getElementById("beers").addEventListener('click', () => {
 
 
 // Event and function for showing more details about each bear
-
 function moreDetailsButtons () {
     let buttons = Array.from(document.getElementsByClassName("beerDetails"));
     buttons.map(button => {
@@ -239,7 +239,7 @@ document.getElementById("searchButton").addEventListener('click', () => {
         });
 })
 
-// Function for handling the search input
+// Function for handling the search input - it will show results on keypress
 document.getElementById("searchInput").addEventListener('keyup', () => {
     $.ajax({
         method: "GET",
