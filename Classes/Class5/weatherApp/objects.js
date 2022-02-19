@@ -7,9 +7,9 @@ let unitsObj = {
 
     generateDropDown: () => {
         let str = "";
-        str += "<p>Select measurement unit</p><select> name='units' id='units'><option value='' selected disabled>Select unit</option>";
+        str += "<p>Select measurement unit</p><select name='units' id='units'>";
         for (key in unitsObj.units) {
-            str += `<option value=${unitsObj.units[key]}>${unitsObj.units[key]}</option>`
+            str += `<option value=${key}>${unitsObj.units[key]}</option>`
         }
         str += "</select>"
         return str;
@@ -19,6 +19,7 @@ let unitsObj = {
 
 let languagesObj = {
     languages: {
+        en: "English",
         af: "Afrikaans",
         al: "Albanian",
         ar: "Arabic",
@@ -29,7 +30,6 @@ let languagesObj = {
         da: "Danish",
         de: "German",
         el: "Greek",
-        en: "English",
         eu: "Basque",
         fa: "Persian",
         fi: "Finnish",
@@ -69,40 +69,58 @@ let languagesObj = {
 
     generateDropDown: () => {
         let str = "";
-        str += "<p>Select language</p><select name='language' id='languages'><option value='' selected disabled>Select language</option>";
+        str += "<p>Select language</p><select name='language' id='languages'>";
         for (key in languagesObj.languages) {
-            str += `<option value="${languagesObj.languages[key]}">${languagesObj.languages[key]}</option>`
+            str += `<option value="${key}">${languagesObj.languages[key]}</option>`
         }
         str += '</select>';
         return str;
     }
 }
 
+
+
 let citiesObj = {
-    cities: {
-        data: [
-            "ActionScript",
-            "AppleScript",
-            "Asp",
-            "BASIC",
-            "C",
-            "C++",
-        ]
-    },  
+    
+    cities: {},  
 
     autocompleteFunction: () => {
-        let str = '<div class="ui-widget"><label for="tags" id="cityLabel">Select city:</label><br><input id="tags"></div';
-        // $("#tags").autocomplete({
-        //     source: citiesObj.cities.data
-        //   });
-        return str;
-    }
+        $.getJSON("city.list.json", a => {
+            let cityNames = a.map(element => element.name);
+            citiesObj.cities.data = cityNames
+            return cityNames;
+        }).then(()=>{
+            let str = '<div class="ui-widget"><label for="tags" id="cityLabel">Select city:</label><br><input id="tags"></div>';
+            document.getElementById("customLeft").innerHTML += str;
+            $("#tags").autocomplete({
+                source: citiesObj.cities.data,
+                minLength: 3
+            });
+            let button = createCustomPageBtn();
+            document.getElementById("customLeft").appendChild(button);
 
+
+            document.getElementById("customPageBtn").addEventListener('click', async () => {
+         
+                let language = document.getElementById("languages").value;
+                let unit = document.getElementById("units").value;
+                let city = document.getElementById("tags").value;
+                let customUrl = `http://api.openweathermap.org/data/2.5/weather?q=${city}&units=${unit}&language=${language}&appid=${apiKey}`;
+                let data = await generateCustomReportAsync (customUrl); 
+                let resultDiv = document.getElementById("customRight");
+                renderCustomResult(resultDiv, data);   
+            })
+        });
+    }
 }
 
-// $.getJSON("city.list.json", a => {
-//         citiesObj.cities.data = a.map(element => element.name);
-// });
 
+function createCustomPageBtn () {
+    let btn = document.createElement("button");
+    let btnContent = document.createTextNode("Generate report");
+    btn.appendChild(btnContent);
+    btn.setAttribute("id", "customPageBtn");
+    return btn;
 
+}
 

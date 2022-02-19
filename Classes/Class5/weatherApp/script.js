@@ -9,6 +9,7 @@ let homeSearchInput = document.getElementById("searchInput");
 let searchBtn = document.getElementById("searchButton");
 let searchLi = document.getElementById("search");
 
+
 $(document).ready (() => {
     document.getElementById("homeNav").click();
 });
@@ -25,18 +26,19 @@ function renderHomePage (element, response) {
     let average = ((parseInt(highestTemperature) + parseInt(lowestTemperature)) / 2).toFixed(2);
     let humidity = `${response.main.humidity}%`;
     let pressure = response.main.pressure; 
-    element.innerHTML = `<h3>Location:</h3><p class="centered">${location}</p>
-    <h3>Temperature:</h3><p class="centered">The temperatire is ${temperature} degrees celsius</p>
+    element.innerHTML = `<h3 class="homeh3style">Location:</h3><p class="centered">${location}</p>
+    <h3 class="homeh3style">Temperature:</h3><p class="centered">The temperature is ${temperature} degrees celsius</p>
     <p class="centered">The highest temperature is ${highestTemperature} degrees celsius</p>
     <p class="centered">The lowest temperature is ${lowestTemperature} degrees celsius</p>
     <p class="centered">The average temperature is ${average} degrees celsius</p>
-    <h3>Humidity:</h3><p class="centered">The humidity is ${humidity}</p><h3>Pressure:</h3><p class="centered">The pressure is ${pressure} hpa</P>`;
+    <h3 class="homeh3style">Humidity:</h3><p class="centered">The humidity is ${humidity}</p><h3 class="homeh3style">Pressure:</h3><p class="centered">The pressure is ${pressure} hpa</P>`;
 }
+
 
 // Function for handling the "Hourly Weather" page
 function renderHourlyWeather (element, response) {
-    $(".active").toggleClass("active",false);
-    $("#hourlyNav").toggleClass("active",true);
+    $(".active").toggleClass("active", false);
+    $("#hourlyNav").toggleClass("active", true);
     element.innerHTML += "<table><tr><th>Icon</th><th>Description</th><th>Date and Time</th><th>Temperature</th><th>Humidity</th><th>Wind speed</th></tr>";
     let arr = response.list;
 
@@ -53,21 +55,59 @@ function renderHourlyWeather (element, response) {
     element.innerHTML += "</table>";
 }
 
+
 // Function for handling the "about" page
 function renderAbout (element) {
-    $(".active").toggleClass("active",false);
-    $("#aboutNav").toggleClass("active",true);
-    element.innerHTML = `<h3>About the application</h3>
+    $(".active").toggleClass("active", false);
+    $("#aboutNav").toggleClass("active", true);
+    element.innerHTML = `<h3 class="abouth3style">About the application</h3>
     <p class="centered">Weather application information</p>
-    <h3>Creator information</h3><p class="centered">Aneta Stankovska<br>
+    <h3 class="abouth3style">Creator information</h3><p class="centered">Aneta Stankovska<br>
     <small>All rights reserved <span class="centered">&#169</span></small></p>
-    <h3>Contact info</h3>
+    <h3 class="abouth3style">Contact info</h3>
     <p class="centered">Text about the contact information</p>`
 }
 
 
-// Functions for handlng the custom report page - units, languages and cities are included in the objects.js script
+// Functions for handlng the "custom report" page - units, languages and cities are included in the objects.js script
+function renderCustom (element) {
+    $(".active").toggleClass("active", false);
+    $("#customNav").toggleClass("active", true);
+    element.innerHTML = "<div id='customLeft'></div><div id='customRight'></div>";
+    let left = document.getElementById("customLeft");
+    let unitsData = unitsObj.generateDropDown();
+    left.innerHTML += unitsData;
 
+    let languageData = languagesObj.generateDropDown();
+    left.innerHTML += languageData;
+
+    
+    let citiesData = citiesObj.autocompleteFunction();
+    // console.log(citiesObj);
+    
+}
+
+
+// Function for rendering the result in the custom page after selecting the criteria
+function renderCustomResult (element, response) {
+    let location = document.getElementById("tags").value;
+    let temperature = (response.main.temp  - 273.15).toFixed(2);
+    let highestTemperature = (response.main.temp_max - 273.15).toFixed(2);
+    let lowestTemperature = (response.main.temp_min - 273.15).toFixed(2);
+    let average = ((parseInt(highestTemperature) + parseInt(lowestTemperature)) / 2).toFixed(2);
+    let humidity = `${response.main.humidity}%`;
+    let pressure = response.main.pressure; 
+    element.innerHTML = `<h3>Location:</h3><p>${location}</p>
+    <h3>Temperature:</h3><p>The temperature is ${temperature} degrees celsius</p>
+    <p>The highest temperature is ${highestTemperature} degrees celsius</p>
+    <p>The lowest temperature is ${lowestTemperature} degrees celsius</p>
+    <p>The average temperature is ${average} degrees celsius</p>
+    <h3>Humidity:</h3><p>The humidity is ${humidity}</p><h3>Pressure:</h3><p>The pressure is ${pressure} hpa</P>`;
+}
+
+
+
+//ASYNC FUNCTIONS FOR GETTING THE DATA
 
 // Async function for getting the data
 async function fetchHomeDataAsync (url) {
@@ -85,8 +125,16 @@ async function fetchHourlyDataAsync (url) {
 }
 
 
-// EVENTS
+// Async function for the custom page data
+async function generateCustomReportAsync (url) {
+    let data = await fetch(url).then(response => response.json());
+    let customData = data;
+    return customData;
+}
 
+
+
+// EVENTS
 
 // Event handler for the HOME link
 document.getElementById("homeNav").addEventListener('click', async () => {
@@ -95,7 +143,6 @@ document.getElementById("homeNav").addEventListener('click', async () => {
 
     renderHomePage(wrapperDiv, data);
 });
-
 
 
 // Event handler for the HOURLY WEATHER link
@@ -107,12 +154,12 @@ document.getElementById("hourlyNav").addEventListener('click', async () => {
 });
 
 
-
 // Event handler for the ABOUT link
 document.getElementById("aboutNav").addEventListener('click', () => {
     searchLi.style.display = "none";
     renderAbout(wrapperDiv, homeData);
 });
+
 
 // Event for handling the search input
 homeSearchInput.addEventListener('keyup', async () => {
@@ -127,23 +174,17 @@ homeSearchInput.addEventListener('keyup', async () => {
     renderHourlyWeather(wrapperDiv, filteredFinal);
 });
 
+
 // Event for handling the custom report page
 document.getElementById("customNav").addEventListener('click', () => {
-    $(".active").toggleClass("active",false);
-    $("#customNav").toggleClass("active",true);
-    wrapperDiv.innerHTML = "";
-    let unitsData = unitsObj.generateDropDown();
-    wrapperDiv.innerHTML += unitsData;
+    renderCustom(wrapperDiv);    
+});
 
-    let languageData = languagesObj.generateDropDown();
-    wrapperDiv.innerHTML += languageData;
 
-    let citiesData = citiesObj.autocompleteFunction();
-    wrapperDiv.innerHTML += citiesData;
-    $("#tags").autocomplete({
-        source: citiesObj.cities.data
-      });
-})
+
+
+
+
 
 
 

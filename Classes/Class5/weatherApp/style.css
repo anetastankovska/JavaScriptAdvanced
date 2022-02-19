@@ -2,6 +2,10 @@
     font-family: sans-serif;
 }
 
+html {
+    width: 100vw;
+}
+
 nav {
     display: block;
     background-color: darkgray;
@@ -22,9 +26,6 @@ ul {
     text-align: center;
 }
 
-li {
-
-}
 
 a {
     text-decoration: none;
@@ -53,11 +54,12 @@ h1 {
     color: navy;
 }
 
-h3 {
+.homeh3style, .abouth3style {
     text-align: center;
     font-size: 1.5em;
     color: darkred;
 }
+
 
 .centered {
     text-align: center;
@@ -81,13 +83,38 @@ td, th {
     padding-right: 20px;
 }
 
-#tags, #cityLabel {
-    margin-top: 1%;
+#units {
+    font-size: 1em;
 }
 
 #languages {
     margin-bottom: 1%;
 }
 
+#tags {
+    margin-top: 4%;
+}
 
+
+#customPageBtn {
+    margin-top: 10%;
+    color: blue;
+    font-size: 1em;
+}
+
+#customLeft  {
+    float: left;
+    margin: 1%;
+}
+
+#customRight {
+    float: left;
+    margin-left: 3%;
+}
+
+
+#languages {
+    margin-bottom: 10%;
+    font-size: 1em;
+}
 

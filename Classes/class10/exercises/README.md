@@ -1,7 +1,8 @@
 Exercises
 Exercise 1
-Create 3 object templates. Academy, Student and Subject. The structure should be: Academy
+Create 3 object templates. Academy, Student and Subject. The structure should be: 
 
+Academy
 Name - string
 Students - array of Students
 Subjects - array of Subjects
@@ -10,16 +11,16 @@ End - Date when it ends
 NumberOfClasses - number of subjects * 10, not settable
 PrintStudents - method that prints all students in console
 PrintSubjects - method that prints all subjects in console
-Subject
 
+Subject
 Title - string
 NumberOfClasses - default 10, not settable
 isElective - boolean
 Academy - Academy object
 Students - array of Students
 OverrideClasses - accepts a number and rewrites the NumberOfClasses property with that number. The number can't be smaller than 3.
-Student
 
+Student
 FirstName - string
 LastName - string
 Age - number
