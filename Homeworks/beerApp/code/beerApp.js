@@ -18,8 +18,9 @@ function loadSortLists () {
     let sortStr = ""
     sortStr = `<div id="drop-down">
         <select name="page-size" id="page-size">
-        <option value="5" selected>Show 5</option>
-        <option value="10">Show 10</option>
+        <option value="4" selected>Show 4</option>
+        <option value="8">Show 8</option>
+        <option value="16">Show 16</option>
         <option value="20">Show 20</option></select>
         <select name="sort-by" id="sort-by">
         <option value="sort-by" selected disabled>Sort by</option>
@@ -141,7 +142,7 @@ document.getElementById("beers").addEventListener('click', () => {
                 return prev;
             }, {}); 
             sortAndPageDiv.innerHTML = loadSortLists();
-            let pagedBeers = handlePageSize(beerList, 5, currentPage);
+            let pagedBeers = handlePageSize(beerList, 4, currentPage);
             beerGridDiv.innerHTML = loadBeers(pagedBeers);
             moreDetailsButtons();
             loadButtons();

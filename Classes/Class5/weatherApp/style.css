@@ -1,3 +1,7 @@
+* {
+    font-family: sans-serif;
+}
+
 nav {
     display: block;
     background-color: darkgray;
@@ -6,9 +10,37 @@ nav {
 }
 
 .navigation {
-    cursor: pointer
+    cursor: pointer;
+    padding-right: 45px;
+    float: none;
+    font-size: 1.5em;
+    display: inline-block;
 }
 
+ul {
+    width: 100%;
+    text-align: center;
+}
+
+li {
+
+}
+
+a {
+    text-decoration: none;
+    color: navy;
+}
+
+.active {
+    font-weight: bold;
+}
+
+#searchInput {
+    float: right;
+    background-color: lightsteelblue;
+    margin-top: 5px;
+    
+}
 
 h1 {
     background-image: url("../pictures/banner.jpg");
@@ -27,7 +59,7 @@ h3 {
     color: darkred;
 }
 
-p {
+.centered {
     text-align: center;
     font-size: 1.2em;
     color:royalblue;
@@ -49,24 +81,13 @@ td, th {
     padding-right: 20px;
 }
 
-ul {
-    width: 100%;
-    text-align: center;
+#tags, #cityLabel {
+    margin-top: 1%;
 }
 
-li {
-    padding-right: 30px;
-    float: none;
-    font-size: 1.5em;
-    display: inline-block;
+#languages {
+    margin-bottom: 1%;
 }
 
-a {
-    text-decoration: none;
-    color: navy;
-}
 
-.active {
-    font-weight: bold;
-}
 

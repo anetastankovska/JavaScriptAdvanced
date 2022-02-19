@@ -5,24 +5,29 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WeatherAlert</title>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <link rel="stylesheet" href="style.css" type="text/css">
     <link rel="icon" type="image/x-icon" href="../pictures/weather_icon.png">
 </head>
 <body>
     <div>
-        <h1>Welcome to our WeatherAlert forecast application</h1>
+        <h1>Welcome to our all-in-one WeatherAlert forecast application</h1>
     </div>
     <nav>
         <ul>
             <li class="navigation active" id="homeNav">Home</li>
             <li class="navigation" id ="hourlyNav">Hourly Weather</li>
             <li class="navigation" id="aboutNav">About</li>
+            <li class="navigation" id="customNav">Custom report</li>
         </ul>
     </nav>
+    <div id="search"><input type="text" id="searchInput" placeholder="Search"></div>
     <div id="wrapper"></div>
 
 
     <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
+    <script src="objects.js"></script>
     <script src="script.js"></script>
 </body>
 </html>

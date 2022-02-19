@@ -1,27 +1,16 @@
 let wrapperDiv = document.getElementById("wrapper");
-let resultData = null;
+let homeData = null;
 let hourlyData = null;
 let apiKey = "27b16354546e74859d91cf9829740711";
 let city = "skopje";
 let baseUrl = `http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`;
 let hourlyUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}`;
+let homeSearchInput = document.getElementById("searchInput");
+let searchBtn = document.getElementById("searchButton");
+let searchLi = document.getElementById("search");
 
 $(document).ready (() => {
     document.getElementById("homeNav").click();
-
-        // $.ajax({
-        //     method: 'GET',
-        //     url: baseUrl,
-
-        //     success: (response) => {
-        //         console.log(response);
-        //         resultData = response;
-        //     },
-        //     error: (error) => {
-        //         console.log(error)
-        //     },
-        // });
-
 });
 
 
@@ -36,12 +25,12 @@ function renderHomePage (element, response) {
     let average = ((parseInt(highestTemperature) + parseInt(lowestTemperature)) / 2).toFixed(2);
     let humidity = `${response.main.humidity}%`;
     let pressure = response.main.pressure; 
-    element.innerHTML = `<h3>Location:</h3><p>${location}</p>
-    <h3>Temperature:</h3><p>The temperatire is ${temperature} degrees celsius</p>
-    <p>The highest temperature is ${highestTemperature} degrees celsius</p>
-    <p>The lowest temperature is ${lowestTemperature} degrees celsius</p>
-    <p>The average temperature is ${average} degrees celsius</p>
-    <h3>Humidity:</h3><p>The humidity is ${humidity}</p><h3>Pressure:</h3><p>The pressure is ${pressure} hpa</P>`;
+    element.innerHTML = `<h3>Location:</h3><p class="centered">${location}</p>
+    <h3>Temperature:</h3><p class="centered">The temperatire is ${temperature} degrees celsius</p>
+    <p class="centered">The highest temperature is ${highestTemperature} degrees celsius</p>
+    <p class="centered">The lowest temperature is ${lowestTemperature} degrees celsius</p>
+    <p class="centered">The average temperature is ${average} degrees celsius</p>
+    <h3>Humidity:</h3><p class="centered">The humidity is ${humidity}</p><h3>Pressure:</h3><p class="centered">The pressure is ${pressure} hpa</P>`;
 }
 
 // Function for handling the "Hourly Weather" page
@@ -69,86 +58,93 @@ function renderAbout (element) {
     $(".active").toggleClass("active",false);
     $("#aboutNav").toggleClass("active",true);
     element.innerHTML = `<h3>About the application</h3>
-    <p>Weather application information</p>
-    <h3>Creator information</h3><p>Aneta Stankovska<br>
-    <small>All rights reserved <span>&#169</span></small></p>
+    <p class="centered">Weather application information</p>
+    <h3>Creator information</h3><p class="centered">Aneta Stankovska<br>
+    <small>All rights reserved <span class="centered">&#169</span></small></p>
     <h3>Contact info</h3>
-    <p>Text about the contact information</p>`
+    <p class="centered">Text about the contact information</p>`
 }
 
+
+// Functions for handlng the custom report page - units, languages and cities are included in the objects.js script
+
+
+// Async function for getting the data
+async function fetchHomeDataAsync (url) {
+    let data = await fetch(url).then(response => response.json());
+    homeData = data;
+    return homeData;
+}
+
+
+// Async function for the hourly weather data
+async function fetchHourlyDataAsync (url) {
+    let data = await fetch(url).then(response => response.json());
+    let hourlyData = data;
+    return hourlyData;
+}
 
 
 // EVENTS
 
 
 // Event handler for the HOME link
-document.getElementById("homeNav").addEventListener('click', () => {
+document.getElementById("homeNav").addEventListener('click', async () => {
+    searchLi.style.display = "none";
+    let data = await fetchHomeDataAsync(baseUrl);
 
-    if (resultData === null) {
-        $.ajax({
-            method: 'GET',
-            url: baseUrl,
-
-            success: (response) => {
-                console.log(response);
-                resultData = response;
-                renderHomePage(wrapperDiv, resultData);
-            },
-            error: (error) => {
-                console.log(error)
-            },
-        });
-    } else {
-        renderHomePage(wrapperDiv, resultData);
-    }
+    renderHomePage(wrapperDiv, data);
 });
+
 
 
 // Event handler for the HOURLY WEATHER link
-document.getElementById("hourlyNav").addEventListener('click', () => {
+document.getElementById("hourlyNav").addEventListener('click', async () => {
+    searchLi.style.display = "block";
     wrapperDiv.innerHTML = "";
-
-    if (hourlyData === null) {
-        $.ajax({
-            method: 'GET',
-            url: hourlyUrl,
-
-            success: (response) => {
-                console.log(response);
-                hourlyData = response;
-                renderHourlyWeather(wrapperDiv, hourlyData);
-            },
-            error: (error) => {
-                console.log(error)
-            },
-        });
-    } else {
-        renderHourlyWeather(wrapperDiv, hourlyData);
-    }
+    let data = await fetchHourlyDataAsync(hourlyUrl);
+    renderHourlyWeather(wrapperDiv, data);
 });
+
 
 
 // Event handler for the ABOUT link
 document.getElementById("aboutNav").addEventListener('click', () => {
-
-    if (resultData === null) {
-        $.ajax({
-            method: 'GET',
-            url: baseUrl,
-
-            success: (response) => {
-                console.log(response);
-                resultData = response;
-                renderAbout(wrapperDiv, resultData);
-            },
-            error: (error) => {
-                console.log(error)
-            },
-        });
-    } else {
-        renderAbout(wrapperDiv, resultData);
-    }
+    searchLi.style.display = "none";
+    renderAbout(wrapperDiv, homeData);
 });
+
+// Event for handling the search input
+homeSearchInput.addEventListener('keyup', async () => {
+    let inputValue = homeSearchInput.value;
+    let list = await fetchHourlyDataAsync(hourlyUrl);
+    let descriptionList = list.list;
+    let filteredList = descriptionList.filter(e => {return e.weather[0].description.toLowerCase().includes(inputValue.toLowerCase())});
+    console.log(filteredList);
+    filteredFinal = {}
+    filteredFinal.list = filteredList;
+    wrapperDiv.innerHTML = "";
+    renderHourlyWeather(wrapperDiv, filteredFinal);
+});
+
+// Event for handling the custom report page
+document.getElementById("customNav").addEventListener('click', () => {
+    $(".active").toggleClass("active",false);
+    $("#customNav").toggleClass("active",true);
+    wrapperDiv.innerHTML = "";
+    let unitsData = unitsObj.generateDropDown();
+    wrapperDiv.innerHTML += unitsData;
+
+    let languageData = languagesObj.generateDropDown();
+    wrapperDiv.innerHTML += languageData;
+
+    let citiesData = citiesObj.autocompleteFunction();
+    wrapperDiv.innerHTML += citiesData;
+    $("#tags").autocomplete({
+        source: citiesObj.cities.data
+      });
+})
+
 
 
 

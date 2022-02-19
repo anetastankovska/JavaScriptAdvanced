@@ -1,5 +1,7 @@
 let baseUrl = "https://restcountries.com/v2/alpha/"
 let wrapperDiv = document.getElementById("wrapper");
+let btn = document.getElementById("get-data");
+let input = document.getElementById("country-code");
 
 async function getNeighbours (countryCode) {
     let response = await fetch (`${baseUrl}${countryCode}`);
@@ -28,8 +30,8 @@ async function showNeighbours (countryCode) {
 }
 
 
-document.getElementsByTagName("button")[0].addEventListener('click', () => {
-    let inputValue = document.getElementsByTagName("input")[0].value;
+btn.addEventListener('click', () => {
+    let inputValue = input.value;
     showNeighbours(inputValue);
 });
 
