@@ -11,7 +11,7 @@ $(document).ready(function () {
                 <p>Name: ${character.name}</p>
                 <button class='btn-more-info' value ='${character.url}'>Show more info</button>
             `);
-            li.html(liHtml);
+            li.html(liHtml); 
             ul.append(li);
         }
 
