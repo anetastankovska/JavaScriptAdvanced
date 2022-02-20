@@ -3,7 +3,7 @@ let stopWatch = {
     interval: null,
 
     start: function () {
-        this.interval = setInterval(() => {
+        this.interval = setInterval(() => { 
             this.time++;
             console.log(this.time);
         }, 1000);

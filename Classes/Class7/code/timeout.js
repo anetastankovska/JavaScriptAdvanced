@@ -4,7 +4,7 @@
 //     console.log("Hi from timeout");
 // }, 2000);
 
-// console.log("Bye");
+// console.log("Bye"); 
 
 function printName(name, callback) {
     console.log("Hello " + name);

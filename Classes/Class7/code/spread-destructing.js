@@ -67,7 +67,7 @@ let combined = {
 let firstName1 = combined.firstName;
 let lastName1 = combined.lastName;
 
-let { firstName, lastName } = combined;
+let { firstName, lastName } = combined; 
 // console.log("FirstName", firstName);
 // console.log("LastName", lastName);
 
