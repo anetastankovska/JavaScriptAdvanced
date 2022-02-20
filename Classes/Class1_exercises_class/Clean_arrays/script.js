@@ -11,7 +11,7 @@ function cleanAllButString (array) {
     for (let i = 0; i < array.length; i++) {
         if (typeof(array[i]) === "string") {
             newArray.push(array[i]);
-        }
+        } 
     }
     console.log(newArray);
     return newArray;
