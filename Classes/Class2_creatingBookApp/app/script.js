@@ -156,7 +156,7 @@ document
         }
         let book = new Book(values.title, values.author, values.year);
         let isAdded = booksDb.addBook(book);
-        if (isAdded) {
+        if (isAdded) { 
             // show information message if the book is added
             booksService.handleInfoMessage(`Successfuly added book ${book.title}`);
         } else {
