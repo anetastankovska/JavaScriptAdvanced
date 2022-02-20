@@ -13,7 +13,7 @@ function second() {
     console.log('Second thing');
 }
 
-first(4000)
+first(4000) 
     .then(data => {
         console.log(data);
         second();
