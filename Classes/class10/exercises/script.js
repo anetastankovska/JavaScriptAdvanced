@@ -38,7 +38,7 @@ function Subject (title, isElective, academy) {
     this.academy = academy,
     this.students = [],
     this.numberOfClasses = 10,
-    this.academy.addSubject(this),
+    this.academy.addSubject(this)
 
     this.overrideClasses = number => {this.numberOfClasses = number < 3 ? 3 : number}
 }
