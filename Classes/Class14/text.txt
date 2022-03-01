@@ -1,0 +1,7 @@
+This is our first text added thru javascript.We want to append this text to an existing txt file
+We want to append this text to an existing txt file
+We want to append this text to an existing txt file
+We want to append this text to an existing txt file
+We want to append this text to an existing txt file
+We want to append this text to an existing txt file
+We want to append this text to an existing txt file
