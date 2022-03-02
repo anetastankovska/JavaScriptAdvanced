@@ -9,7 +9,7 @@ class Country {
     constructor (restCountriesObj) {
         this.flag = restCountriesObj.flags.png;
         this.name = restCountriesObj.name.common;
-        this.capital = restCountriesObj.capital != undefined ? restCountriesObj.capital.join(", ") : "None";
+        this.capital = restCountriesObj.capital ? restCountriesObj.capital.join(", ") : "None";
         this.population = restCountriesObj.population;
         this.area = restCountriesObj.area;
         this.languages = Object.values(restCountriesObj.languages).join(", ");
@@ -63,7 +63,25 @@ class CountryService {
     renderData (data) {
         console.log(data);
         let str ="";
-        str += `<div id="tableDiv"><table>
+        // str += `<div id="tableDiv"><table>
+        // <tr><td></td>
+        // <td><select id="nameDropDown"><option value="ascending">Ascending</option><option value="descending">Descending</option></td>
+        // <td></td>
+        // <td><select id="populationDropDown"><option value="ascending">Ascending</option><option value="descending">Descending</option></td>
+        // <td><select id="areaDropDown"><option value="ascending">Ascending</option><option value="descending">Descending</option></td>
+        // <td></td>
+        // <td></td>
+        // <tr><th>Flag</th>
+        // <th>Name</th>
+        // <th>Capital</th>
+        // <th>Population</th>
+        // <th>Area</th>
+        // <th>Languages</th>
+        // <th>Currencies</th></tr>`;
+        // str += data.map(x => {
+        //     return x.toTableRow()
+        // }).join("");
+        str = `<div id="tableDiv"><table>
         <tr><td></td>
         <td><select id="nameDropDown"><option value="ascending">Ascending</option><option value="descending">Descending</option></td>
         <td></td>
@@ -77,11 +95,12 @@ class CountryService {
         <th>Population</th>
         <th>Area</th>
         <th>Languages</th>
-        <th>Currencies</th></tr>`;
-        str += data.map(x => {
+        <th>Currencies</th></tr>
+        ${data.map(x => {
             return x.toTableRow()
-        }).join("");
-        str += `</table></div>`
+        }).join("")}
+        </table></div>`
+        // str += `</table></div>`
         return str;
     }
 
@@ -110,12 +129,12 @@ class CountryService {
         return filteredByPopulation;
     }
 
-    sortalphabeticallyAsc() {
+    sortByNameAsc() {
         let sorted = this.filteredData.sort((a, b) => (a.name.localeCompare(b.name)));
         return sorted;
     }
 
-    sortalphabeticallyDesc() {
+    sortaByNameDesc() {
         let sorted = this.filteredData.sort((a, b) => b.name.localeCompare(a.name));
         return sorted;
     }
@@ -144,6 +163,26 @@ class CountryService {
 
 
     handleEventListeners () {
+
+        btn.addEventListener('click', async () => {
+            wrapperDiv.innerHTML = "";
+            let inputValue = inputText.value;
+            let countryName =  inputValue.toLowerCase(); 
+            let countryUrl = `https://restcountries.com/v3.1/name/${countryName}`
+        
+            wrapperDiv.innerHTML = `<img id="loading" src="https://upload.wikimedia.org/wikipedia/commons/5/54/Ajux_loader.gif">`;
+            // let service = new CountryService();
+            let data = await this.getDataAsync(countryUrl);
+            let countries = data.map(country => {
+                return new Country(country);
+            });
+            console.log(countries);
+            filterDiv.innerHTML = this.renderFilters();
+            wrapperDiv.innerHTML = this.renderData(countries);
+            this.handleEventListeners();
+        });
+
+
         document.getElementById("filterByNameBtn").addEventListener('click', () => {
             let input = document.getElementById("filterByNameInput").value;
             let filtered = this.filterByName(input);
@@ -170,10 +209,10 @@ class CountryService {
                 this.filteredData = this.countriesData;
             }
             if (value === "ascending") {
-                this.sortalphabeticallyAsc();
+                this.sortByNameAsc();
             }
             if (value === "descending") {
-                this.sortalphabeticallyDesc();
+                this.sortByNameDesc();
             }
             wrapperDiv.innerHTML = this.renderData(this.filteredData);
             document.getElementById("nameDropDown").value = value;
@@ -214,25 +253,9 @@ class CountryService {
     }
 }
 
+let service = new CountryService();
+service.handleEventListeners()
 
-
-btn.addEventListener('click', async () => {
-    wrapperDiv.innerHTML = "";
-    let inputValue = inputText.value;
-    let countryName =  inputValue.toLowerCase(); 
-    let countryUrl = `https://restcountries.com/v3.1/name/${countryName}`
-
-    wrapperDiv.innerHTML = `<img id="loading" src="https://upload.wikimedia.org/wikipedia/commons/5/54/Ajux_loader.gif">`;
-    let service = new CountryService();
-    let data = await service.getDataAsync(countryUrl);
-    let countries = data.map(country => {
-        return new Country(country);
-    });
-    console.log(countries);
-    filterDiv.innerHTML = service.renderFilters();
-    wrapperDiv.innerHTML = service.renderData(countries);
-    service.handleEventListeners();
-});
 
 
 
