@@ -1,0 +1,14 @@
+{
+  "name": "phonedisplay",
+  "version": "1.0.0",
+  "description": "This is a web page for displaying phones",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "SEDC G3",
+  "license": "MIT",
+  "dependencies": {
+    "bootstrap": "^5.1.3"
+  }
+}
