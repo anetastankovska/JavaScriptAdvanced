@@ -1,6 +1,5 @@
-Created a page that show details about different types of beers
 BeerApp is a simple page that contains information about different types of beers. 
-It has three links in the navigation bar and a searc bar
+It has three links in the navigation bar and a search bar
 1. The first link "BeerBar" is the home page where the application greets the user. 
 
 2. The second link "Beers" shows information about all beers.
