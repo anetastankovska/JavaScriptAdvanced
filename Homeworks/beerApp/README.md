@@ -25,4 +25,4 @@ It has three links in the navigation bar and a search bar
 4. The search bar searches by a letter or a keyword contained in the name of the beer.
 
 
-***The Api witch is used is: https://punkapi.com/documentation/v2
+***The Api used for creating the page is: https://punkapi.com/documentation/v2
