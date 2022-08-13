@@ -177,6 +177,7 @@ homeSearchInput.addEventListener('keyup', async () => {
 
 // Event for handling the custom report page
 document.getElementById("customNav").addEventListener('click', () => {
+    homeSearchInput.display = "none";
     renderCustom(wrapperDiv);    
 });
 
